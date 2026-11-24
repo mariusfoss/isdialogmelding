@@ -16,6 +16,7 @@ data class BehandlerKontorFraAdresseregisteretDTO(
     val epost: String?,
     val orgnummer: String?,
     val behandlere: List<BehandlerFraAdresseregisteretDTO>,
+    val tjenester: List<TjenesteFraAdresseregisteretDTO>,
 ) {
     data class Adresse(
         val adresse: String?,
@@ -33,6 +34,15 @@ data class BehandlerKontorFraAdresseregisteretDTO(
         val hprId: Int?,
         val kategori: String?,
     )
+
+    data class TjenesteFraAdresseregisteretDTO(
+        val aktiv: Boolean,
+        val herId: Int,
+        val navn: String,
+        val visningsnavn: String? = null,
+    ) {
+        fun visningsnavnOrNavn(): String = visningsnavn?.takeIf { it.isNotBlank() } ?: navn
+    }
 }
 
 fun BehandlerKontorFraAdresseregisteretDTO.toBehandlerKontor(partnerId: String) =
